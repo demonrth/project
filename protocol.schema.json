@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/research-agent-message.schema.json",
+  "title": "Research Collaboration Agent Message",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "message_id",
+    "conversation_id",
+    "parent_message_id",
+    "correlation_id",
+    "related_message_id",
+    "message_type",
+    "sender",
+    "receiver",
+    "timestamp",
+    "priority",
+    "payload",
+    "summary",
+    "status",
+    "token_count",
+    "payload_digest",
+    "requires_ack"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "2.0"
+    },
+    "message_id": {
+      "type": "string",
+      "pattern": "^msg-[0-9a-f]{12}$"
+    },
+    "conversation_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "parent_message_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^msg-[0-9a-f]{12}$"
+    },
+    "correlation_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "related_message_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^msg-[0-9a-f]{12}$"
+    },
+    "message_type": {
+      "enum": [
+        "TASK_ASSIGN",
+        "INFO_REQUEST",
+        "RESULT_SUBMIT",
+        "CONFLICT_NOTICE",
+        "ACK",
+        "CONFLICT_RESOLUTION",
+        "REVISION_REQUEST",
+        "REVISION_SUBMIT",
+        "FINAL_RESULT",
+        "ERROR"
+      ]
+    },
+    "sender": {
+      "type": "string",
+      "minLength": 1
+    },
+    "receiver": {
+      "type": "string",
+      "minLength": 1
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "priority": {
+      "enum": [
+        "LOW",
+        "NORMAL",
+        "HIGH",
+        "CRITICAL"
+      ]
+    },
+    "payload": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "enum": [
+        "SENT",
+        "ACCEPTED",
+        "COMPLETED",
+        "REJECTED",
+        "FAILED",
+        "RESOLVED"
+      ]
+    },
+    "token_count": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "payload_digest": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{16}$"
+    },
+    "requires_ack": {
+      "type": "boolean"
+    }
+  }
+}
